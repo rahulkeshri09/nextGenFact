@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
-
+import Sidebar from "./components/Sidebar";
+import MobileHeader from "./components/MobileHeader";
+import Content from "./components/Content";
+import Footer from "./components/Footer";
+import {useState,useEffect} from 'react';
+import MobileFooter from "./components/MobileFooter";
 function App() {
+  const [display,setDisplay]=useState("");
+  useEffect(()=>{
+    const screen=window.screen.width;
+    if(screen<750){
+      setDisplay(("mobile"));
+      console.log(display,"display");
+    }else{
+      setDisplay(("laptop"));
+      console.log(display,"display");
+    }
+  },[display]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+    <div className="App" >
+      {
+        display==="laptop"?
+        <Sidebar />
+        :<MobileHeader />
+      }
+      {
+        display==="mobile" && <MobileFooter />
+      }
+      <Content />
+      <Footer />
+      
     </div>
   );
 }
